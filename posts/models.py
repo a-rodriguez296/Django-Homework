@@ -19,3 +19,9 @@ class Post(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=150)
     post = models.ForeignKey(Post)
+
+    class Meta:
+        ordering = ('name',)
+
+    def __unicode__(self):
+        return self.name
