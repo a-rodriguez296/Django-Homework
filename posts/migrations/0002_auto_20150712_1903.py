@@ -13,6 +13,15 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='category',
-            options={'ordering': ('name',)},
+            options={},
+        ),
+        migrations.RemoveField(
+            model_name='category',
+            name='post',
+        ),
+        migrations.AddField(
+            model_name='post',
+            name='categories',
+            field=models.ManyToManyField(to='posts.Category'),
         ),
     ]

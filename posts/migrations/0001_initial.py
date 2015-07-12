@@ -13,11 +13,22 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Blog',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(default=b'', max_length=150)),
+                ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Category',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=150)),
             ],
+            options={
+                'ordering': ('name',),
+            },
         ),
         migrations.CreateModel(
             name='Post',
@@ -28,7 +39,7 @@ class Migration(migrations.Migration):
                 ('body', models.TextField(default=b'')),
                 ('url_image', models.URLField(null=True)),
                 ('published_date', models.DateField()),
-                ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('blog', models.ForeignKey(to='posts.Blog')),
             ],
         ),
         migrations.AddField(
