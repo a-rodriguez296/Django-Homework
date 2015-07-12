@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+    {% block section %}
+    <h1> Bienvenido a Wordplease.</h1>
+    <p>Wordplease es la plataforma de blogs creada por Alejandro Rodríguez</p>
+
+    {% if posts_list|length > 0 %}
+        <h2>Últimos post publicados</h2>
+        {% include 'posts/posts_loop.html' %}
+
+    {% else %}
+        <h2> Publica tu primer Post</h2>
+    {% endif %}
+
+    {% endblock %}
