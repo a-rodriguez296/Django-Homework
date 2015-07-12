@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+    {% block title %}
+
+     {{ post.title }}
+
+    {% endblock %}
+
+    {% block section %}
+    <img src="{{ post.url_image }}" alt="{{ post.title }}" height="300">
+    <p>
+        <strong>Resumen:</strong>
+        {{ post.summary }}
+    </p>
+    <p>
+        <strong>Texto:</strong>
+        {{ post.body }}
+    </p>
+    <p>
+        <strong>Autor:</strong>
+        {{ post.owner.first_name }}
+        {{ post.owner.last_name }}
+    </p>
+
+    {% endblock %}
