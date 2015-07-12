@@ -1,5 +1,5 @@
 {% for post in posts_list %}
-    <a href=""> <!--Hay que poner el link al detalle-->
+    <a href="{% url 'posts_detail' post.pk %}">
         {{ post.title }}
     </a>
 
