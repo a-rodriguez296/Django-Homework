@@ -8,6 +8,9 @@ class Blog(models.Model):
     owner = models.ForeignKey(User)
     name = models.CharField(max_length=150, default="")
 
+    def __unicode__(self):
+        return self.name
+
 
 class Category(models.Model):
     name = models.CharField(max_length=150)

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block section %}
+
+
+    {% if blogs_list|length > 0 %}
+        <h1> Lista de Blogs</h1>
+        {% include 'posts/blogs_loop.html' %}
+
+    {% else %}
+        <h2> No hay blogs en la plataforma</h2>
+    {% endif %}
+
+    {% endblock %}

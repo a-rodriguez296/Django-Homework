@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from posts.views import HomeView, DetailView
+from posts.views import HomeView, DetailView, BlogsListView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^home$', HomeView.as_view(), name='posts_home'),
     url(r'^posts/(?P<pk>[0-9]+)$', DetailView.as_view(), name='posts_detail'),
 
+    #Blogs
+    url(r'^blogs$', BlogsListView.as_view(), name='blogs_list'),
 ]

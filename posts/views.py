@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.views.generic import View
-from posts.models import Post
+from posts.models import Post, Blog
 
 
 class HomeView(View):
@@ -12,6 +12,7 @@ class HomeView(View):
             'posts_list': posts
         }
         return render(request, 'posts/home.html', context)
+
 
 class DetailView(View):
 
@@ -24,3 +25,12 @@ class DetailView(View):
                 'post': post
             }
             return render(request, 'posts/detail.html', context)
+
+
+class BlogsListView(View):
+    def get(self, request):
+        context = {
+            'blogs_list': Blog.objects.all()
+        }
+        return render(request, 'posts/blogs_list.html', context)
+
