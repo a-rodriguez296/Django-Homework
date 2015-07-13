@@ -11,6 +11,12 @@
 
     {% block section %}
 
+    {% for error in errors %}
+
+    <p> {{ error }}</p>
+
+    {% endfor %}
+
     <form method="post">
         {% csrf_token %}
         <table>
