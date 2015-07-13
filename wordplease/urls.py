@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from posts.views import HomeView, DetailView, BlogsListView, BlogDetailView
-from users.views import LoginView, LoginView
+from users.views import LoginView, LogOutView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -35,7 +35,7 @@ urlpatterns = [
 
     #Este es el redireccionamiento de la parte de users
     url(r'^login$', LoginView.as_view(), name='users_login'),
-    url(r'^logout$', LoginView.as_view(), name='users_logout'),
+    url(r'^logout$', LogOutView.as_view(), name='users_logout'),
 
 ]
 

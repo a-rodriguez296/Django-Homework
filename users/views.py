@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from users.forms import LoginForm
-from django.contrib.auth import authenticate, login as django_login
+from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 
 
 class LoginView(View):
@@ -42,3 +42,11 @@ class LoginView(View):
                 'login_form': form
             }
             return render(request, 'users/login.html', context)
+
+
+class LogOutView(View):
+
+    def get(self, request):
+        if request.user.is_authenticated():
+            django_logout(request)
+            return redirect('posts_home')
