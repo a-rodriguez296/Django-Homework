@@ -1,5 +1,5 @@
 {% for blog in blogs_list %}
-    <a href="">
+    <a href="{% url 'blog_detail' blog.pk  %}">
         {{ blog.name }}
     </a>
 {% endfor %}

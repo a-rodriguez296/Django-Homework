@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block section %}
+
+
+    {% if posts_list|length > 0 %}
+        <h2>Últimos post publicados</h2>
+        {% include 'posts/posts_loop.html' %}
+
+    {% else %}
+        <h2>Este blog aún no tiene posts</h2>
+    {% endif %}
+
+    {% endblock %}

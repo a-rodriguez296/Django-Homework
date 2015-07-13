@@ -1,7 +1,12 @@
 {% for post in posts_list %}
-    <a href="{% url 'posts_detail' post.pk %}">
+    <a href="{% url 'posts_detail' post.blog.owner.id post.pk %}">
         {{ post.title }}
     </a>
+    <p>
+        <strong>Autor:</strong>
+        {{ post.blog.owner.first_name }}
+        {{ post.blog.owner.last_name }}
+    </p>
     {% if not post.url_image == NONE %}
     <img src="{{ post.url_image }}" height="300">
     {% endif %}
