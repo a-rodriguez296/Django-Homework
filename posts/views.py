@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from posts.models import Post, Blog
 from forms import PostForm
@@ -61,3 +61,35 @@ class CreatePostView(View):
             'post_form': form
         }
         return render(request, 'posts/create_post.html', context)
+
+    def post(self, request):
+
+        #Creación de una instancia de Post
+        post_with_blog = Post()
+
+        #Asignacion del atributo owner a la instancia de Post
+        post_with_blog.blog = request.user.blog
+
+        form = PostForm(request.POST, instance=post_with_blog)
+
+        if form.is_valid():
+
+            new_post = form.save()
+
+            #obtener el identificador del blog
+            blog_identifier = new_post.blog.id
+
+            #obtener el identificador del post
+            post_identifier = new_post.id
+
+            return redirect('posts_detail', blog_id=blog_identifier, post_identifier=post_identifier)
+        else:
+
+            #porque no me salen los campos otra vez
+            context = {
+                'form': form,
+                'error_message': 'Hay errores en los campos'
+            }
+            return render(request, 'posts/create_post.html', context)
+
+

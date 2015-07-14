@@ -19,10 +19,14 @@
         <table>
             {{ post_form.as_p }}
         </table>
-
+        <div>
+            <button>Crear Post</button>
+        </div>
 
     </form>
 
-    <div>
-        <button>Registrarse</button>
-    </div>
+    {% if error_message %}
+        {{ error_message }}
+    {% endif %}
+
+    {% endblock %}
