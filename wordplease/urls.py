@@ -26,6 +26,7 @@ urlpatterns = [
 
 
     url(r'^home$', HomeView.as_view(), name='posts_home'),
+    url(r'^$', HomeView.as_view(), name='posts_home'),
     url(r'^blogs/(?P<blog_id>[0-9]+)/(?P<post_identifier>[0-9]+)$', DetailView.as_view(), name='posts_detail'),
 
     #Blogs

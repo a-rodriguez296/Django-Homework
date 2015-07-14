@@ -18,8 +18,25 @@
     </p>
     <p>
         <strong>Autor:</strong>
-        {{ post.owner.first_name }}
-        {{ post.owner.last_name }}
+        {{ post.blog.owner.first_name }}
+        {{ post.blog.owner.last_name }}
     </p>
+
+    {% if post.categories.all|length > 0 %}
+
+        <p>
+            <strong>Categorías:</strong>
+        </p>
+
+    {% endif %}
+
+    {% for category in post.categories.all %}
+
+        <p>
+            <strong>Nombre:</strong>
+            {{ category.name }}
+        </p>
+
+    {% endfor %}
 
     {% endblock %}
