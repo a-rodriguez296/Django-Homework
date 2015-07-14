@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from posts.views import HomeView, DetailView, BlogsListView, BlogDetailView
+from posts.views import HomeView, DetailView, BlogsListView, BlogDetailView, CreatePostView
 from users.views import LoginView, LogOutView, SignupView
 
 urlpatterns = [
@@ -32,6 +32,9 @@ urlpatterns = [
     #Blogs
     url(r'^blogs$', BlogsListView.as_view(), name='blogs_list'),
     url(r'^blogs/(?P<pk>[0-9]+)$', BlogDetailView.as_view(), name='blog_detail'),
+
+    #Crear un Post
+    url(r'^new-post$', CreatePostView.as_view(), name='posts_create_post'),
 
 
     #Este es el redireccionamiento de la parte de users

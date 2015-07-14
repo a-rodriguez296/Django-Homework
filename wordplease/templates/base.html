@@ -11,6 +11,7 @@
 
         {% if user.is_authenticated %}
             <a href="{% url 'users_logout' %}">Logout</a>
+            <a href="{% url 'posts_create_post' %}">Crear Post</a>
         {% else %}
             <a href="{% url 'users_login' %}">Login</a>
             <a href="{% url 'users_signup' %}">Sign up</a>

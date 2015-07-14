@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.views.generic import View
 from posts.models import Post, Blog
+from forms import PostForm
 
 
 class HomeView(View):
@@ -50,3 +51,13 @@ class BlogDetailView(View):
             'posts_list': possible_post,
         }
         return render(request, 'posts/blogs_detail.html', context)
+
+class CreatePostView(View):
+
+    def get(self, request):
+
+        form = PostForm()
+        context = {
+            'post_form': form
+        }
+        return render(request, 'posts/create_post.html', context)
