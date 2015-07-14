@@ -2,8 +2,43 @@
 
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from users.forms import LoginForm
+from users.forms import LoginForm, SignupForm
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
+
+class SignupView(View):
+
+    def get(self, request):
+        form = SignupForm()
+        context = {
+            'signup_form': form
+        }
+        return render(request, 'users/signup.html', context)
+
+    def post(self, request):
+        error_messages = []
+        form = SignupForm(request.POST)
+
+        if form.is_valid():
+
+            #Guardar el usuario nuevo
+            new_user = form.save()
+
+            #Poner los campos en blanco
+            form = SignupForm()
+
+            return redirect('posts_home')
+        else:
+
+            #Pregunta. En el html pq no me pinta los campos de nuevo
+            form = SignupForm()
+            context = {
+                'form': form,
+                'message': 'Hay errores en el formulario. Intenta de nuevo.'
+            }
+            return render(request, 'users/signup.html', context)
+
+
+
 
 
 class LoginView(View):

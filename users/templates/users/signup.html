@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+    {% block title %}
+
+     Sign up
+
+    {% endblock %}
+
+
+
+
+    {% block section %}
+
+    <h1>Sign Up</h1>
+
+    {% for error in errors %}
+
+    <p> {{ error }}</p>
+
+    {% endfor %}
+
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            {{ signup_form.as_p }}
+        </table>
+
+
+        {% if not message %}
+
+        <div>
+            <button>Registrarse</button>
+        </div>
+
+        {% endif %}
+
+
+
+    </form>
+
+    {% if message %}
+
+    {{ message }}
+
+    {% endif %}
+
+
+    {% endblock %}
