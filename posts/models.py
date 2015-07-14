@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Blog(models.Model):
-    owner = models.ForeignKey(User)
+    owner = models.OneToOneField(User)
     name = models.CharField(max_length=150, default="")
 
     def __unicode__(self):
