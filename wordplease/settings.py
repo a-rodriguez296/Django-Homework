@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'wordplease',
     'posts',
     'users',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
