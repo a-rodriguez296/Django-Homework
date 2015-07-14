@@ -17,6 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from posts.views import HomeView, DetailView, BlogsListView, BlogDetailView, CreatePostView
 from users.views import LoginView, LogOutView, SignupView
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -34,7 +35,7 @@ urlpatterns = [
     url(r'^blogs/(?P<pk>[0-9]+)$', BlogDetailView.as_view(), name='blog_detail'),
 
     #Crear un Post
-    url(r'^new-post$', CreatePostView.as_view(), name='posts_create_post'),
+    url(r'^new-post$', login_required(CreatePostView.as_view()), name='posts_create_post'),
 
 
     #Este es el redireccionamiento de la parte de users

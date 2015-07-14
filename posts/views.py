@@ -91,5 +91,3 @@ class CreatePostView(View):
                 'error_message': 'Hay errores en los campos'
             }
             return render(request, 'posts/create_post.html', context)
-
-
