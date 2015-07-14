@@ -17,7 +17,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from posts.views import HomeView, DetailView, BlogsListView, BlogDetailView, CreatePostView
 from users.views import LoginView, LogOutView, SignupView
-from users.api import UserListAPI
+#from users.api import UserListAPI
+from posts.api import BlogListAPI
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
@@ -46,6 +47,9 @@ urlpatterns = [
 
 
     #Api de usuarios
-    url(r'^api/1.0/users/$', UserListAPI.as_view(), name='users_list_api'),
+    #url(r'^api/1.0/users/$', UserListAPI.as_view(), name='users_list_api'),
+
+    #Api de Blogs
+    url(r'^api/1.0/blogs/$', BlogListAPI.as_view(), name='blogs_api'),
 ]
 
