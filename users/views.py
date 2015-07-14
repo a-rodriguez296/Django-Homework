@@ -3,6 +3,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from users.forms import LoginForm, SignupForm
+from posts.models import Blog
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 
 class SignupView(View):
@@ -15,13 +16,17 @@ class SignupView(View):
         return render(request, 'users/signup.html', context)
 
     def post(self, request):
-        error_messages = []
         form = SignupForm(request.POST)
 
         if form.is_valid():
 
             #Guardar el usuario nuevo
             new_user = form.save()
+
+            blog = Blog()
+            blog.name = "Blog de {}".format(new_user.username)
+            blog.owner = new_user
+            blog.save()
 
             #Poner los campos en blanco
             form = SignupForm()
