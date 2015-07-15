@@ -12,9 +12,24 @@ class UserCreateApi(CreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
+
+
+
 class UserDetialApi(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated():
+            if self.request.user.is_superuser:
+                return User.objects.all()
+            else:
+                return User.objects.filter(pk=self.request.user.id)
+        else:
+            return None
+
+
+
 
 

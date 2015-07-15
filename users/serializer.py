@@ -14,6 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
+
+        #Crear Blog asociado a este usuario
+
+
         return user
 
     class Meta:
