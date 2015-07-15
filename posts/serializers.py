@@ -4,9 +4,14 @@ from rest_framework import serializers
 from models import Post, Blog
 
 
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+
+
 class BlogSerializer(serializers.ModelSerializer):
+
+    post_set = PostSerializer(many=True)
 
     class Meta:
         model = Blog
-
-    #Me hace falta cómo generar la url de los posts hijos del blog

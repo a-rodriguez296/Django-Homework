@@ -2,13 +2,13 @@
 
 from rest_framework.views import APIView
 from models import Post, Blog
-from serializers import BlogSerializer
+from serializers import BlogSerializer, PostSerializer
 from rest_framework.response import Response
 
 
 class BlogListAPI(APIView):
 
-    def get(self, request, ):
+    def get(self, request):
 
         blog_name = request.GET.get('blog_name')
 
@@ -18,4 +18,13 @@ class BlogListAPI(APIView):
             blogs = Blog.objects.all()
 
         serializer = BlogSerializer(blogs, many=True)
+        return Response(serializer.data)
+
+
+class PostsListApi(APIView):
+
+    def get(self, request):
+
+        posts = Post.objects.all()
+        serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
