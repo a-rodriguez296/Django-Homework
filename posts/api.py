@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 from rest_framework.views import APIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from models import Post, Blog
 from serializers import BlogSerializer, PostSerializer
 from rest_framework.response import Response
@@ -21,10 +22,13 @@ class BlogListAPI(APIView):
         return Response(serializer.data)
 
 
-class PostsListApi(APIView):
+class PostsListApi(ListCreateAPIView):
 
-    def get(self, request):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
-        posts = Post.objects.all()
-        serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data)
+
+class PostsDetailApi(RetrieveUpdateDestroyAPIView):
+
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
