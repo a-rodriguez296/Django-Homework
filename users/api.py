@@ -9,10 +9,6 @@ class UserCreateApi(CreateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-
-
-
 
 
 class UserDetialApi(RetrieveUpdateDestroyAPIView):
