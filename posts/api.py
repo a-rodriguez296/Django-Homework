@@ -5,7 +5,8 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from models import Post, Blog
 from serializers import BlogSerializer, PostSerializer
 from rest_framework.response import Response
-
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django.db.models import Q
 
 class BlogListAPI(APIView):
 
@@ -24,8 +25,40 @@ class BlogListAPI(APIView):
 
 class PostsListApi(ListCreateAPIView):
 
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get_queryset(self):
+
+        query_set = None
+
+        #Definir si es List o Create
+        if self.request.method == 'GET':
+            if not self.request.user.is_authenticated():
+                query_set = Post.objects.filter(is_published=True)
+            else:
+                #Caso en el que es admin y no llega nada en la busqueda
+                if self.request.user.is_superuser and not self.request.GET.get('search'):
+                    query_set = Post.objects.all()
+
+
+                #Caso en el que es admin y llega algo en el la busqueda
+                elif self.request.user.is_superuser:
+                    #todo Como hago para no repetir el query
+                    query_set = Post.objects.filter(Q(title__icontains=self.request.GET.get('search')) | Q(body__icontains=self.request.GET.get('search')))
+
+
+                #Caso de usuario cualquiera
+                else:
+                    query_set = Post.objects.filter(blog__owner=self.request.user)
+            if self.request.GET.get('search'):
+                query_set.filter(Q(title__icontains=self.request.GET.get('search')) | Q(body__icontains=self.request.GET.get('search')))
+        else:
+            pass
+        return query_set
+
+
+
 
 
 class PostsDetailApi(RetrieveUpdateDestroyAPIView):
