@@ -25,6 +25,7 @@ class Post(models.Model):
     body = models.TextField(default="")
     url_image = models.URLField(null=True)
     published_date = models.DateField()
+    private = models.BooleanField(default=False)
     categories = models.ManyToManyField(Category)
 
     def __unicode__(self):
