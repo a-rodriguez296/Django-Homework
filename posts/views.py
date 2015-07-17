@@ -87,7 +87,7 @@ class CreatePostView(View):
 
             #porque no me salen los campos otra vez
             context = {
-                'form': form,
+                'post_form': form,
                 'error_message': 'Hay errores en los campos'
             }
             return render(request, 'posts/create_post.html', context)

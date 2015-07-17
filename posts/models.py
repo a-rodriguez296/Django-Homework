@@ -13,7 +13,7 @@ class Blog(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150, unique=True)
 
     def __unicode__(self):
         return self.name
