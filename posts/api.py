@@ -54,8 +54,20 @@ class PostsListApi(ListCreateAPIView):
             if self.request.GET.get('search'):
                 query_set.filter(Q(title__icontains=self.request.GET.get('search')) | Q(body__icontains=self.request.GET.get('search')))
         else:
-            pass
+            query_set = Post.objects.all()
         return query_set
+
+    # def create(self, request, *args, **kwargs):
+    #     post = Post(**request.data)
+    #
+    #     #Buscar el blog asociado al usuario actual
+    #     blog = Blog.objects.filter(owner=request.user)[0]
+    #
+    #     #Asociarlselo al post
+    #     post.blog = blog
+    #
+    #     return post
+
 
 
 
