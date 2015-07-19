@@ -11,8 +11,9 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 class BlogListAPI(ListAPIView):
     serializer_class = BlogSerializer
     queryset = Blog.objects.all()
-    filter_backends = (filters.SearchFilter,)
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     search_fields = ('name', )
+    ordering = ('name', )
 
 
 class PostsListApi(ListCreateAPIView):
