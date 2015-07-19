@@ -48,7 +48,7 @@ urlpatterns = [
 
     #Api de usuarios
     url(r'^api/1.0/users/$', UserCreateApi.as_view(), name='users_create_api'),
-    url(r'^api/1.0/users/(?P<pk>[0-9]+)$', UserDetailApi.as_view(), name='posts_detail_api'),
+    url(r'^api/1.0/users/(?P<pk>[0-9]+)$', UserDetailApi.as_view(), name='users_detail_api'),
 
 
     #Api de Blogs

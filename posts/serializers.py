@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 from rest_framework import serializers
+from django.core.urlresolvers import reverse
 from models import Post, Blog, Category
 
 
@@ -13,6 +14,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     #categories = CategorySerializer(many=True,)
+
 
     # def create(self, validated_data):
     #     categories = validated_data.pop('categories')
@@ -32,15 +34,21 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         #fields = ('title','summary', 'url_image', 'published_date', 'body', 'blog')
 
+class PostSerializerUrl(serializers.ModelSerializer):
+    title = serializers.SerializerMethodField()
+
+    def get_title(self, instance):
+
+        return reverse('posts_detail', args=[1, instance.id])
+
+    class Meta:
+        model = Post
+        fields = ('title',)
 
 class BlogSerializer(serializers.ModelSerializer):
 
-    posts_set = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='posts-detail',
-    )
+    post_set=PostSerializerUrl(many=True)
 
     class Meta:
         model = Blog
-        fields =("name", "posts_set")
+        fields =("name", "post_set")
