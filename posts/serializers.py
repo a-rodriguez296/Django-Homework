@@ -35,15 +35,15 @@ class PostSerializer(serializers.ModelSerializer):
         #fields = ('title','summary', 'url_image', 'published_date', 'body', 'blog')
 
 class PostSerializerUrl(serializers.ModelSerializer):
-    title = serializers.SerializerMethodField()
+    url = serializers.SerializerMethodField()
 
-    def get_title(self, instance):
+    def get_url(self, instance):
 
-        return reverse('posts_detail', args=[1, instance.id])
+        return reverse('posts_detail', args=[instance.blog.id, instance.id])
 
     class Meta:
         model = Post
-        fields = ('title',)
+        fields = ('url', )
 
 class BlogSerializer(serializers.ModelSerializer):
 

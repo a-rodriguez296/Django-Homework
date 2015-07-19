@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from serializer import UserSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+
 class UserCreateApi(CreateAPIView):
 
     queryset = User.objects.all()
@@ -24,8 +25,3 @@ class UserDetailApi(RetrieveUpdateDestroyAPIView):
                 return User.objects.filter(pk=self.request.user.id)
         else:
             return None
-
-
-
-
-
