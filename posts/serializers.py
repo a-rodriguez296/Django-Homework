@@ -12,6 +12,18 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('name',)
 
 
+class PostSerializerBase(serializers.ModelSerializer):
+
+    class Meta:
+        model = Post
+
+
+class PostSerializerList(PostSerializerBase):
+
+    class Meta(PostSerializerBase.Meta):
+        fields = ('title', 'url_image', 'summary', 'published_date')
+
+
 class PostSerializer(serializers.ModelSerializer):
     #categories = CategorySerializer(many=True,)
 
@@ -34,16 +46,20 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         #fields = ('title','summary', 'url_image', 'published_date', 'body', 'blog')
 
-class PostSerializerUrl(serializers.ModelSerializer):
+class PostSerializerUrl(PostSerializerBase):
     url = serializers.SerializerMethodField()
 
     def get_url(self, instance):
 
         return reverse('posts_detail', args=[instance.blog.id, instance.id])
 
-    class Meta:
-        model = Post
+    class Meta(PostSerializerBase.Meta):
+        #model = Post
         fields = ('url', )
+
+
+
+
 
 class BlogSerializer(serializers.ModelSerializer):
 
