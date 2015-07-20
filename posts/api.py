@@ -1,10 +1,10 @@
 #-*- coding: utf-8 -*-
 
-from rest_framework.views import APIView
+
 from rest_framework import filters
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from models import Post, Blog
-from serializers import BlogSerializer, PostSerializer, PostSerializerList
+from serializers import BlogSerializer, PostSerializerList, PostSerializerCreate
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
@@ -18,7 +18,6 @@ class BlogListAPI(ListAPIView):
 
 class PostsListApi(ListCreateAPIView):
 
-    serializer_class = PostSerializerList
     permission_classes = (IsAuthenticatedOrReadOnly,)
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     search_fields = ('title', 'published_date')
@@ -30,7 +29,7 @@ class PostsListApi(ListCreateAPIView):
         serializer.save(blog=self.request.user.blog)
 
     def get_serializer_class(self):
-        return PostSerializerList if self.request.method == 'GET' else PostSerializer
+        return PostSerializerList if self.request.method == 'GET' else PostSerializerCreate
 
     def get_queryset(self):
 
@@ -48,9 +47,3 @@ class PostsListApi(ListCreateAPIView):
             else:
                 query_set = Post.objects.filter(blog__owner=self.request.user)
         return query_set
-
-
-class PostsDetailApi(RetrieveUpdateDestroyAPIView):
-
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer

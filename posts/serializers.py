@@ -24,27 +24,11 @@ class PostSerializerList(PostSerializerBase):
         fields = ('title', 'url_image', 'summary', 'published_date')
 
 
-class PostSerializer(serializers.ModelSerializer):
-    #categories = CategorySerializer(many=True,)
+class PostSerializerCreate(PostSerializerBase):
 
+    class Meta(PostSerializerBase.Meta):
+        exclude = ('blog', )
 
-    # def create(self, validated_data):
-    #     categories = validated_data.pop('categories')
-    #     for category_dict in categories:
-    #         category_object =Category.objects.filter(name=category_dict.get('name'))[0]
-    #
-    #     post = Post.objects.create(**validated_data)
-    #
-    #
-    #
-    #     request = self.context.get('request')
-    #     post.blog = request.user.blog
-    #
-    #     return post
-
-    class Meta:
-        model = Post
-        #fields = ('title','summary', 'url_image', 'published_date', 'body', 'blog')
 
 class PostSerializerUrl(PostSerializerBase):
     url = serializers.SerializerMethodField()
@@ -56,9 +40,6 @@ class PostSerializerUrl(PostSerializerBase):
     class Meta(PostSerializerBase.Meta):
         #model = Post
         fields = ('url', )
-
-
-
 
 
 class BlogSerializer(serializers.ModelSerializer):
