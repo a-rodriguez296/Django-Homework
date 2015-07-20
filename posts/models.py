@@ -18,6 +18,7 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Post(models.Model):
     blog = models.ForeignKey(Blog)
     title = models.CharField(max_length=150)
@@ -25,7 +26,7 @@ class Post(models.Model):
     body = models.TextField(default="")
     url_image = models.URLField(null=True)
     published_date = models.DateField()
-    is_published = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=True)
     categories = models.ManyToManyField(Category)
 
     def __unicode__(self):

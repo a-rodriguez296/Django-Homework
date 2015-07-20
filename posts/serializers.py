@@ -30,6 +30,12 @@ class PostSerializerCreate(PostSerializerBase):
         exclude = ('blog', )
 
 
+class PostSerializerDetail(PostSerializerBase):
+
+    class Meta(PostSerializerBase.Meta):
+        exclude = []
+
+
 class PostSerializerUrl(PostSerializerBase):
     url = serializers.SerializerMethodField()
 
@@ -38,7 +44,6 @@ class PostSerializerUrl(PostSerializerBase):
         return reverse('posts_detail', args=[instance.blog.id, instance.id])
 
     class Meta(PostSerializerBase.Meta):
-        #model = Post
         fields = ('url', )
 
 
