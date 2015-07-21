@@ -1,23 +1,19 @@
 #-*- coding: utf-8 -*-
 
 
-from rest_framework import filters
+from rest_framework import filters, mixins, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from models import Post, Blog
 from serializers import BlogSerializer, PostSerializerList, PostSerializerCreate, PostSerializerDetail
-from rest_framework.viewsets import ModelViewSet, ViewSet
-from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 
-class BlogViewSet(ViewSet):
+class BlogViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Blog.objects.all()
-
-    def list(self, request):
-        serializer = BlogSerializer(self.queryset, many=True)
-        filter_backends = (filters.SearchFilter, filters.OrderingFilter)
-        search_fields = ('name', )
-        ordering = ('name', )
-        return Response(serializer.data)
+    serializer_class = BlogSerializer
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    search_fields = ('name', )
+    ordering = ('name',)
 
 
 class PostViewSet(ModelViewSet):

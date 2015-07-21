@@ -11,10 +11,6 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
 
-        #Crear Blog asociado a este usuario
-        blog = Blog(owner=user, name="Blog de {0}".format(user.username))
-        blog.save()
-
         return user
 
     class Meta:

@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from posts.views import HomeView, DetailView, BlogsListView, BlogDetailView, CreatePostView
 from users.views import LoginView, LogOutView, SignupView
-from users.api import UserCreateApi, UserDetailApi
+from users.api import UserCreateDetailUpdateDestroyViewSet #, UserCreateApi, UserDetailApi
 from posts.api import BlogViewSet, PostViewSet #, PostsListApi, PostsDetailApi, BlogListAPI
 from django.contrib.auth.decorators import login_required
 from rest_framework.routers import DefaultRouter
@@ -27,6 +27,7 @@ router = DefaultRouter()
 
 router.register('api/1.0/posts', PostViewSet)
 router.register('api/1.0/blogs', BlogViewSet)
+router.register('api/1.0/users', UserCreateDetailUpdateDestroyViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -54,8 +55,8 @@ urlpatterns = [
 
 
     #Api de usuarios
-    url(r'^api/1.0/users/$', UserCreateApi.as_view(), name='users_create_api'),
-    url(r'^api/1.0/users/(?P<pk>[0-9]+)$', UserDetailApi.as_view(), name='users_detail_api'),
+    # url(r'^api/1.0/users/$', UserCreateApi.as_view(), name='users_create_api'),
+    # url(r'^api/1.0/users/(?P<pk>[0-9]+)$', UserDetailApi.as_view(), name='users_detail_api'),
 
 
     #Api de Blogs
