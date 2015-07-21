@@ -2,19 +2,22 @@
 
 
 from rest_framework import filters
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from models import Post, Blog
 from serializers import BlogSerializer, PostSerializerList, PostSerializerCreate, PostSerializerDetail
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet
+from rest_framework.response import Response
 
 
-class BlogListAPI(ListAPIView):
-    serializer_class = BlogSerializer
+class BlogViewSet(ViewSet):
     queryset = Blog.objects.all()
-    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
-    search_fields = ('name', )
-    ordering = ('name', )
+
+    def list(self, request):
+        serializer = BlogSerializer(self.queryset, many=True)
+        filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+        search_fields = ('name', )
+        ordering = ('name', )
+        return Response(serializer.data)
 
 
 class PostViewSet(ModelViewSet):
@@ -52,6 +55,13 @@ class PostViewSet(ModelViewSet):
         #Acá tengo que asignar el blog
         serializer.save(blog=self.request.user.blog)
 
+
+# class BlogListAPI(ListAPIView):
+#     serializer_class = BlogSerializer
+#     queryset = Blog.objects.all()
+#     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+#     search_fields = ('name', )
+#     ordering = ('name', )
 
 # class PostsListApi(ListCreateAPIView):
 #

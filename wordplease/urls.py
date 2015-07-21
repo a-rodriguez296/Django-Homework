@@ -18,7 +18,7 @@ from django.contrib import admin
 from posts.views import HomeView, DetailView, BlogsListView, BlogDetailView, CreatePostView
 from users.views import LoginView, LogOutView, SignupView
 from users.api import UserCreateApi, UserDetailApi
-from posts.api import BlogListAPI, PostViewSet #, PostsListApi, PostsDetailApi
+from posts.api import BlogViewSet, PostViewSet #, PostsListApi, PostsDetailApi, BlogListAPI
 from django.contrib.auth.decorators import login_required
 from rest_framework.routers import DefaultRouter
 
@@ -26,6 +26,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 
 router.register('api/1.0/posts', PostViewSet)
+router.register('api/1.0/blogs', BlogViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -58,7 +59,7 @@ urlpatterns = [
 
 
     #Api de Blogs
-    url(r'^api/1.0/blogs/$', BlogListAPI.as_view(), name='blogs_api'),
+    #url(r'^api/1.0/blogs/$', BlogListAPI.as_view(), name='blogs_api'),
 
 
 
