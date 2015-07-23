@@ -5,6 +5,7 @@ from django.views.generic import View
 from users.forms import LoginForm, SignupForm
 from posts.models import Blog
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
+from django.contrib.auth.models import User
 
 class SignupView(View):
 
@@ -37,7 +38,7 @@ class SignupView(View):
             #Pregunta. En el html pq no me pinta los campos de nuevo
             form = SignupForm()
             context = {
-                'form': form,
+                'signup_form': form,
                 'message': 'Hay errores en el formulario. Intenta de nuevo.'
             }
             return render(request, 'users/signup.html', context)
