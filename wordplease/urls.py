@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from posts import urls as posts_urls, api_urls as posts_api_urls
 from users import urls as users_urls, api_urls as users_api_urls
+from files import api_urls as files_api_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -13,4 +14,8 @@ urlpatterns = [
     #Posts urls
     url(r'', include(posts_urls)),
     url(r'api/', include(posts_api_urls)),
+
+
+    #Files urls
+    url(r'api/', include(files_api_urls)),
 ]

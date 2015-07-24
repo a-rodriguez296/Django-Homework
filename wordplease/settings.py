@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'wordplease',
     'posts',
     'users',
+    'files',
     'rest_framework',
 )
 
