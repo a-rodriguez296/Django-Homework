@@ -4,7 +4,7 @@ from posts.models import Post, Category, Blog
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'summary', 'body', 'url_image', 'published_date')
-
+    list_filter = ('categories', )
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
